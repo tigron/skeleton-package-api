@@ -1,0 +1,24 @@
+{
+    "name": "tigron/skeleton-package-api",
+    "description": "Tigron Skeleton Restfull API functionality",
+    "type": "library",
+    "require-dev": {
+    },
+    "require" : {
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tigron BVBA",
+            "email": "support@tigron.be"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/tigron/skeleton-package-api",
+        "issues": "https://github.com/tigron/skeleton-package-api/issues"
+    },
+    "autoload": {
+        "psr-4": { "Skeleton\\Package\\": "lib/Skeleton/Package/" }
+    }
+
+}
