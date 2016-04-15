@@ -46,9 +46,13 @@ abstract class Call extends Module {
 			$this->display_404();
 		}
 
-		$response = call_user_func_array( [$this, 'call_' . $_REQUEST['call'] ], []);
+		try {
+			$response = call_user_func_array( [$this, 'call_' . $_REQUEST['call'] ], []);
+		} catch (\Exception $e) {
+			$response = 'Exception: ' . $e->getMessage();
+		}
 
-		if (!isset($_REQUEST['api_output'])) {
+		if (!isset($_REQUEST['api_output']) OR $_REQUEST['api_output'] == '') {
 			$_REQUEST['api_output'] = 'print_r';
 		}
 
@@ -82,8 +86,8 @@ abstract class Call extends Module {
 			$docblock = $factory->create($comments);
 
 			$result[$method_name] = $docblock;
-
 		}
+		ksort($result);
 		return $result;
 	}
 

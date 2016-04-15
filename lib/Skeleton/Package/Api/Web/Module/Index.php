@@ -62,12 +62,17 @@ abstract class Index extends Module {
 			}
 		}
 
-
 		$template = \Skeleton\Core\Web\Template::get();
 		$template->assign('modules', $modules);
 	}
 
-
+	/**
+	 * Recursive scan a directory
+	 *
+	 * @access private
+	 * @param string $directory
+	 * @return array $files
+	 */
 	private function recursive_scan($directory) {
 		$files = scandir($directory);
 		$result = [];
