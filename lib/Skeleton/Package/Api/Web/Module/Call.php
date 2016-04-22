@@ -46,6 +46,14 @@ abstract class Call extends Module {
 			$this->display_404();
 		}
 
+		if (empty($_REQUEST['api_key'])) {
+			$this->display_403();
+		}
+
+		if (!in_array($_REQUEST['api_key'], \Skeleton\Package\Api\Config::$api_keys)) {
+			$this->display_403();
+		}
+
 		try {
 			$response = call_user_func_array( [$this, 'call_' . $_REQUEST['call'] ], []);
 		} catch (\Exception $e) {
@@ -98,7 +106,18 @@ abstract class Call extends Module {
 	 */
 	private function display_404() {
 		header("HTTP/1.0 404 Not Found");
-		echo '404: picture not found';
+		echo '404: not found';
+		exit;
+	}
+
+	/**
+	 * Show 404
+	 *
+	 * @access private
+	 */
+	private function display_403() {
+		header("HTTP/1.0 403 Forbidden");
+		echo '403: no allowed';
 		exit;
 	}
 }

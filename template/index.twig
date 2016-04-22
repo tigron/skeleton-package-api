@@ -157,15 +157,26 @@
 		path = $(this).data('path');
 		url = path + '?call=' + $(this).data('call') + '&';
 
+		data = {};
 		$.each( $(this).find('.param'), function( i, val) {
-			url += val.name + '=' + val.value + '&';
+			data[val.name] = val.value
 		});
-		url += 'api_key={{ env.cookie.api_key }}&api_output={{ env.cookie.api_output }}';
+		url += 'api_key=' + $('#api_key').val() + '&api_output={{ env.cookie.api_output }}';
 
-		$.get( url, function( data ) {
-			$( "#myModal .modal-body pre" ).html( data );
-			$('#myModal .modal-title').html( path );
-			$('#myModal').modal();
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: data,
+			success: function( data ) {
+				$( "#myModal .modal-body pre" ).html( data );
+				$('#myModal .modal-title').html( path );
+				$('#myModal').modal();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				$( "#myModal .modal-body pre" ).html( xhr.responseText );
+				$('#myModal').modal();
+			}
+
 		});
 
 		event.preventDefault();
