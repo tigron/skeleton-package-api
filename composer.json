@@ -5,7 +5,7 @@
     "require-dev": {
     },
     "require" : {
-		"phpdocumentor/reflection-docblock": "~3.0"
+		"phpdocumentor/reflection-docblock": "@stable"
     },
     "license": "MIT",
     "authors": [
