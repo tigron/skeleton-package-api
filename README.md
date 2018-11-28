@@ -62,3 +62,37 @@ Create a call-module
 Make sure every call method is prepended with 'call_'.
 Also make sure to the docblocks contains the correct variables. These will be
 available as $_REQUEST parameters
+
+## Security
+
+Each API request is checked for correct credentials. The API keys can be configured via:
+
+    \Skeleton\Package\Api\Config::$api_keys = [ 'KEY1', 'KEY2' ];
+
+Each API call now needs to contain a valid API KEY in its GET-parameters
+
+    http://api.myapplication.tld/user?call=getById&id=1&api_key=KEY1
+
+To disable authentication, set the Config-value to false
+
+    \Skeleton\Package\Api\Config::$api_keys = false;
+
+For more control, each call will execute a 'secure-method' before proceeding. If
+your application needs more fine-grained user permissions, you can implement
+them here.
+
+
+		/**
+		 * Secure
+		 *
+		 * @access public
+		 * @return bool $secured
+		 */
+		public function secure() {
+		    $api_key = $_REQUEST['api_key'];
+		    // Only keys that start with letter A are allowed
+		    if ($api_key[0] == 'A') {
+		    	return true;
+		    }
+		    return false;
+		}

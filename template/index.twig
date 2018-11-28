@@ -51,15 +51,17 @@
 					<div class="panel-body">
 						<p>{{ docblock.getDescription() }}</p>
 
+						{% block authentication %}
 						<div class="form-group">
 							<label class="col-xs-3 control-label">{% trans "API Key" %}</label>
 							<div class="col-xs-9"><input type="text" id="api_key" class="form-control param" value="{{ env.cookie.api_key }}"/></div>
 						</div>
+						{% endblock %}
 
 						<div class="form-group">
 							<label class="col-xs-3 control-label">{% trans "Output" %}</label>
 							<div class="col-xs-9">
-								<select class="form-control" id="api_output">
+								<select class="form-control param" id="api_output">
 									<option value="print_r" {% if env.cookie.api_output == 'print_r' %}selected{% endif %}>print_r</option>
 									<option value="json" {% if env.cookie.api_output == 'json' %}selected{% endif %}>JSON</option>
 									<option value="serialize" {% if env.cookie.api_output == 'serialize' %}selected{% endif %}>serialize</option>
@@ -78,10 +80,14 @@
         	</div>
 
 			<script type="text/javascript">
+
 				function save_settings() {
-					create_cookie('api_key', $('#api_key').val(), 30);
-					create_cookie('api_output', $('#api_output').val(), 30);
+					settings = $('#settings').find('input, select');
+					settings.each(function(i) {
+						create_cookie($(this).prop('id'), $(this).val(), 30);
+					})
 				}
+
 				function create_cookie(name, value, days) {
 					if (days) {
 						var date = new Date();
@@ -155,20 +161,24 @@
 <script type="text/javascript">
 	$('form').on('submit', function(event) {
 		path = $(this).data('path');
-		url = path + '?call=' + $(this).data('call') + '&';
+		url = path + '?call=' + $(this).data('call');
 
 		data = {};
 		$.each( $(this).find('.param'), function( i, val) {
 			data[val.name] = val.value
 		});
-		url += 'api_key=' + $('#api_key').val() + '&api_output={{ env.cookie.api_output }}';
+
+		$('#settings').find('.param').each(function(i) {
+			data[$(this).prop('id')] = $(this).val();
+		});
+		console.log(data);
 
 		$.ajax({
 			url: url,
 			type: 'POST',
 			data: data,
 			success: function( data ) {
-				$( "#myModal .modal-body pre" ).html( data );
+				$("#myModal .modal-body pre" ).html( data );
 				$('#myModal .modal-title').html( path );
 				$('#myModal').modal();
 			},
