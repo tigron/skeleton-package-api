@@ -9,7 +9,7 @@
 
 namespace Skeleton\Package\Api\Web\Module;
 
-use \Skeleton\Core\Web\Module;
+use \Skeleton\Core\Application\Web\Module;
 use \Skeleton\Package\Api\Config;
 
 abstract class Call extends Module {
