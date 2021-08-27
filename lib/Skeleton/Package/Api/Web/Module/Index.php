@@ -9,7 +9,7 @@
 
 namespace Skeleton\Package\Api\Web\Module;
 
-use \Skeleton\Core\Web\Module;
+use \Skeleton\Core\Application\Web\Module;
 
 abstract class Index extends Module {
 
@@ -51,7 +51,7 @@ abstract class Index extends Module {
 			}
 			$module_name = str_replace('/', '_', $module_name);
 
-			$classname = '\Web_Module_' . $module_name;
+			$classname = $application->module_namespace . $module_name;
 
 			if (class_exists($classname) ) {
 				$module = new $classname;
