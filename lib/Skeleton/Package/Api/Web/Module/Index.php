@@ -9,7 +9,7 @@
 
 namespace Skeleton\Package\Api\Web\Module;
 
-use \Skeleton\Core\Application\Web\Module;
+use \Skeleton\Application\Web\Module;
 
 abstract class Index extends Module {
 
@@ -62,7 +62,7 @@ abstract class Index extends Module {
 			}
 		}
 
-		$template = \Skeleton\Core\Web\Template::get();
+		$template = \Skeleton\Application\Web\Template::get();
 		$template->assign('modules', $modules);
 	}
 
