@@ -22,11 +22,9 @@
 
 </head>
 
-
-
 <body data-spy="scroll" data-target="#myScrollspy">
 <div class="container">
-    <h1>{% trans "RESTful API" %}</h1>
+    <h1>RESTful API</h1>
     <p class="lead">
     	<i>
     		Below you can find a list of API calls that are available for you.
@@ -35,7 +33,7 @@
     <div class="row">
         <div class="col-sm-3" id="myScrollspy">
             <ul class="nav nav-tabs nav-stacked" data-offset-top="120" data-spy="affix">
-            	<li class="active"><a href="#settings"><b>{% trans "Settings" %}</b></a></li>
+            	<li class="active"><a href="#settings"><b>Settings</b></a></li>
             	{% for module in modules %}
 	                <li><a href="#{{ module.get_name() }}">{{ module.get_module_path() }}</a></li>
             	{% endfor %}
@@ -43,23 +41,23 @@
         </div>
         <div class="col-sm-9">
         	<div id="settings">
-        		<h2>{% trans "Settings" %}</h2>
+        		<h2>Settings</h2>
 
 				<div class="form-horizontal">
 				<div class="panel panel-default">
-					<div class="panel-heading">{% trans "Web client settings" %}</div>
+					<div class="panel-heading">Web client settings</div>
 					<div class="panel-body">
 						<p>{{ docblock.getDescription() }}</p>
 
 						{% block authentication %}
 						<div class="form-group">
-							<label class="col-xs-3 control-label">{% trans "API Key" %}</label>
+							<label class="col-xs-3 control-label">API Key</label>
 							<div class="col-xs-9"><input type="text" id="api_key" class="form-control param" value="{{ env.cookie.api_key }}"/></div>
 						</div>
 						{% endblock %}
 
 						<div class="form-group">
-							<label class="col-xs-3 control-label">{% trans "Output" %}</label>
+							<label class="col-xs-3 control-label">Output</label>
 							<div class="col-xs-9">
 								<select class="form-control param" id="api_output">
 									<option value="print_r" {% if env.cookie.api_output == 'print_r' %}selected{% endif %}>print_r</option>
@@ -71,7 +69,7 @@
 
 						<div class="form-group">
 							<div class="col-xs-9 col-xs-offset-3">
-								<button type="submit" class="btn btn-primary" onclick="save_settings()">{% trans "Save" %}</button>
+								<button type="submit" class="btn btn-primary" onclick="save_settings()">Save</button>
 							</div>
 						</div>
 					</div>
@@ -124,7 +122,7 @@
 								{% endfor %}
 								<div class="form-group">
 									<div class="col-xs-9 col-xs-offset-3">
-										<button type="submit" class="btn btn-success">{% trans "Execute" %}</button>
+										<button type="submit" class="btn btn-success">Execute</button>
 									</div>
 								</div>
         					</div>
