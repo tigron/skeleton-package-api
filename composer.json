@@ -5,7 +5,7 @@
     "require-dev": {
     },
     "require" : {
-		"tigron/skeleton-core": ">=2",
+		"tigron/skeleton-core": ">=4",
 		"phpdocumentor/reflection-docblock": "@stable"
     },
     "license": "MIT",
@@ -15,9 +15,6 @@
             "email": "support@tigron.be"
         }
     ],
-    "require": {
-        "tigron/skeleton-core": ">=4"
-    },    
     "support": {
         "source": "https://github.com/tigron/skeleton-package-api",
         "issues": "https://github.com/tigron/skeleton-package-api/issues"
