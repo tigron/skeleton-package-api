@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Module Index
  *
@@ -9,8 +12,8 @@
 
 namespace Skeleton\Package\Api\Web\Module;
 
-use \Skeleton\Core\Application\Web\Module;
-use \Skeleton\Package\Api\Config;
+use Skeleton\Application\Web\Module;
+use Skeleton\Package\Api\Config;
 
 abstract class Call extends Module {
 
@@ -19,17 +22,15 @@ abstract class Call extends Module {
 	 * Default = yes
 	 *
 	 * @access public
-	 * @var bool $login_required
 	 */
-	public $login_required = false;
+	public bool $login_required = false;
 
 	/**
 	 * Template to use
 	 *
 	 * @access public
-	 * @var string $template
 	 */
-	public $template = false;
+	public ?String $template = null;
 
 	/**
 	 * Display
@@ -38,7 +39,7 @@ abstract class Call extends Module {
 	 *
 	 * @access public
 	 */
-	public function display() {
+	public function display(): void {
 		if (!isset($_REQUEST['call'])) {
 			$this->display_404();
 		}
@@ -82,7 +83,7 @@ abstract class Call extends Module {
 	 * @access private
 	 * @return bool $authenticated
 	 */
-	private function authenticate() {
+	private function authenticate(): bool {
 		if (isset(Config::$api_keys) and Config::$api_keys === false) {
 			return true;
 		}
@@ -104,7 +105,7 @@ abstract class Call extends Module {
 	 * @access public
 	 * @return array $calls
 	 */
-	public function get_calls() {
+	public function get_calls(): array {
 		$class = new \ReflectionClass($this);
 		$methods = $class->getMethods();
 		$result = [];
@@ -129,7 +130,7 @@ abstract class Call extends Module {
 	 *
 	 * @access private
 	 */
-	private function display_404() {
+	private function display_404(): void {
 		header("HTTP/1.0 404 Not Found");
 		echo '404: not found';
 		exit;
@@ -140,7 +141,7 @@ abstract class Call extends Module {
 	 *
 	 * @access private
 	 */
-	private function display_403() {
+	private function display_403(): void {
 		header("HTTP/1.0 403 Forbidden");
 		echo '403: not allowed';
 		exit;

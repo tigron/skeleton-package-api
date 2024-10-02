@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Module Index
  *
@@ -9,7 +12,8 @@
 
 namespace Skeleton\Package\Api\Web\Module;
 
-use \Skeleton\Core\Application\Web\Module;
+use Skeleton\Application\Web\Module;
+use Skeleton\Application\Web\Template;
 
 abstract class Index extends Module {
 
@@ -20,22 +24,21 @@ abstract class Index extends Module {
 	 * @access public
 	 * @var bool $login_required
 	 */
-	public $login_required = false;
+	public bool $login_required = false;
 
 	/**
 	 * Template to use
 	 *
 	 * @access public
-	 * @var string $template
 	 */
-	public $template = '@skeleton-package-api\index.twig';
+	public ?string $template = '@skeleton-package-api\index.twig';
 
 	/**
 	 * Display method
 	 *
 	 * @access public
 	 */
-	public function display() {
+	public function display(): void {
 		$application = \Skeleton\Core\Application::get();
 		$module_path = $application->module_path;
 
@@ -62,7 +65,7 @@ abstract class Index extends Module {
 			}
 		}
 
-		$template = \Skeleton\Core\Web\Template::get();
+		$template = Template::get();
 		$template->assign('modules', $modules);
 	}
 
